@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DQSG 實用工具入口網 | DQSG ツールポータル</title>
+    <title>DQSG 實用工具入口網 | スマグロ(DQSG) 攻略ツールポータル</title>
     <meta name="description" content="專為 DQSG 玩家打造的實用網頁工具集合，包含記憶晶體模擬器、收集追蹤器與經驗值計算機。">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,7 +34,7 @@
                 <span class="font-bold text-xl tracking-tight" data-i18n="site_title">DQSG 實用工具入口網</span>
             </div>
             <div class="block">
-                <select id="lang-select" class="bg-blue-700 text-white border border-blue-600 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2" onchange="changeLanguage(this.value)">
+                <select id="lang-select" class="bg-blue-700 text-white border border-blue-600 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 cursor-pointer" onchange="changeLanguage(this.value)">
                     <option value="zh">繁體中文</option>
                     <option value="ja">日本語</option>
                 </select>
@@ -59,7 +59,7 @@
             </script>
         </div>
 
-        <!-- 歡迎區塊 (增加文字內容以利 AdSense 審核) -->
+        <!-- 歡迎區塊 -->
         <section class="text-center mb-12">
             <h1 class="text-3xl md:text-4xl font-bold mb-4 text-blue-900" data-i18n="welcome_title">歡迎來到 DQSG 工具箱</h1>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto" data-i18n="welcome_desc">
@@ -126,7 +126,7 @@
 
         </div>
 
-        <!-- 關於本站 (豐富頁面內容文字，對AdSense審核極為重要) -->
+        <!-- 關於本站 -->
         <section class="mt-16 bg-white p-8 rounded-lg shadow border border-gray-200">
             <h3 class="text-2xl font-bold mb-4 text-gray-800" data-i18n="about_title">關於 DQSG 工具箱</h3>
             <div class="text-gray-600 space-y-4 leading-relaxed">
@@ -189,7 +189,7 @@
         </div>
     </footer>
 
-    <!-- 隱私權政策 Modal (AdSense 必須項目) -->
+    <!-- 隱私權政策 Modal -->
     <div id="privacyModal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" onclick="closeModal('privacyModal')"></div>
         <div class="modal-container bg-white w-11/12 md:max-w-2xl mx-auto rounded shadow-lg z-50 overflow-y-auto max-h-[90vh]">
@@ -258,7 +258,7 @@
         // 設定年份
         document.getElementById('get-current-year').textContent = new Date().getFullYear();
 
-        // 翻譯字典
+        // 翻譯字典 (已針對日本遊戲社群與攻略Wiki習慣用語全面優化)
         const i18n = {
             zh: {
                 site_title: "DQSG 實用工具入口網",
@@ -288,31 +288,32 @@
                 footer_rights: "版權所有。"
             },
             ja: {
-                site_title: "DQSG ツールポータル",
-                welcome_title: "DQSG ツールボックスへようこそ",
-                welcome_desc: "DQSGプレイヤーのための総合ツールプラットフォームです。より正確なデータ計算、リソース管理、進捗追跡に役立つ様々なWebツールを提供しています。下のツールカードをクリックしてご利用ください！",
+                // 日文語系使用 GameWith/Game8 等攻略網站常用名詞
+                site_title: "スマグロ(DQSG) 攻略ツールポータル",
+                welcome_title: "スマグロ ツールポータルへようこそ！",
+                welcome_desc: "スマグロ（ドラクエ スマッシュグロウ）プレイヤー向けの非公式お役立ちツール集です。メモリ編成のシミュレートや所持状況の管理、レベル上げに必要な経験値の計算など、攻略に役立つ便利なWebツールを公開しています。下のカードから各ツールをご利用ください！",
                 
-                tool1_title: "記憶の結晶シミュレーター",
-                tool1_desc: "ゲーム内リソースを消費することなく、記憶の結晶の組み合わせをシミュレートします。キャラクターの編成と戦力を最適化し、現在の高難易度クエストに最適な組み合わせを見つけ出します。",
+                tool1_title: "メモリ編成シミュレーター",
+                tool1_desc: "ゲーム内のアイテムを消費せずに、様々なメモリの組み合わせをシミュレーションできます。最強パーティの編成やステータスの最適化など、高難易度クエスト（強敵マッチ・ほこらなど）の攻略にお役立てください。",
                 
-                tool2_title: "記憶の結晶コレクター",
-                tool2_desc: "収集した記憶の結晶の進捗状況を簡単に記録・追跡できます。インベントリを視覚化し、不足している欠片を一目で確認。今後の周回計画に役立ちます。",
+                tool2_title: "メモリ所持チェッカー",
+                tool2_desc: "現在集めたメモリの所持状況を記録・管理できるツールです。所持済みのメモリを視覚的に把握できるため、どのクエストを周回すべきか、今後の育成計画を立てやすくなります。",
                 
-                tool3_title: "経験値計算機",
-                tool3_desc: "現在のレベルと目標レベルを入力するだけで、必要な総経験値と周回数を素早く計算。スタミナ消費を正確に把握し、効率的なレベリングをサポートします。",
+                tool3_title: "経験値計算ツール",
+                tool3_desc: "現在のレベルと目標レベルを入力するだけで、必要な累計経験値やクリア回数をサクッと計算！スタミナの無駄を省き、効率的なレベル上げ（レベリング）をサポートします。",
                 
-                btn_open: "ツールを開く",
+                btn_open: "ツールを使う",
                 
-                about_title: "DQSG ツールボックスについて",
-                about_p1: "「DQSG ツールポータル」は非公式のファンサイトです。私たちの目的は、ゲームを愛するすべてのプレイヤーが複雑なデータを簡単に管理できるよう、高品質な補助ツールを開発・整理することです。初心者からトッププレイヤーまで、冒険の役に立つツールを揃えています。",
-                about_p2: "当サイトのデータと計算式は、ゲーム内の公開情報およびコミュニティの検証に基づいています。ゲームのアップデートに合わせて継続的なメンテナンスを約束します。ご意見、バグ報告、新ツールのリクエストなどがございましたら、お気軽にお知らせください。",
+                about_title: "当サイトについて",
+                about_p1: "「スマグロ(DQSG) 攻略ツールポータル」は、ドラクエ スマッシュグロウのプレイヤー有志が運営する非公式のファンサイトです。初心者からガチ勢まで、より快適にゲームを楽しめるよう、複雑なデータ管理や計算をサポートする便利ツールを開発・公開しています。",
+                about_p2: "各ツールのデータや計算式は、ゲーム内の情報およびプレイヤーコミュニティでの検証結果を基に作成しております。今後のアップデートにも随時対応していく予定です。不具合の報告や「こんなツールが欲しい！」といったご要望がありましたら、ぜひお気軽にお問い合わせください。良きスマグロライフを！",
                 
-                footer_slogan: "あなたの冒険をよりスムーズに。",
+                footer_slogan: "スマグロの冒険を、もっと快適に。",
                 footer_links_title: "リンク",
                 nav_privacy: "プライバシーポリシー",
                 nav_terms: "利用規約",
                 nav_contact: "お問い合わせ",
-                footer_rights: "All rights reserved."
+                footer_rights: "無断複写・転載を禁じます。"
             }
         };
 
@@ -368,4 +369,5 @@
     </script>
 </body>
 </html>
+
 
