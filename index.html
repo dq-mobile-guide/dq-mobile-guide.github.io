@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DQSG 實用工具入口網 | スマグロ(DQSG) 攻略ツールポータル</title>
-    <meta name="description" content="專為 DQSG 玩家打造的實用網頁工具集合，包含記憶晶體模擬器、收集追蹤器與經驗值計算機。">
+    
+    <!-- 預設 Meta Tags (會被 JS 動態覆蓋) -->
+    <title>DQSG 攻略實用工具入口網 | 記憶晶體模擬器、經驗值計算機</title>
+    <meta name="description" content="專為《勇者鬥惡龍 智慧型手機遊戲》(DQSG) 玩家打造的攻略輔助工具網。提供記憶晶體搭配模擬器、收集追蹤器及經驗值計算機，助您高效率通關、無痛農素材。">
+    <meta name="keywords" content="DQSG, スマグロ, 勇者鬥惡龍, 攻略, ツール, 工具, 記憶晶體, メモリ, 模擬器, シミュレーター, 經驗值, レベリング">
+    
+    <!-- 結構化資料 (JSON-LD) 幫助 Google 讀懂網頁內容 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "DQSG / スマグロ 攻略ツールポータル",
+      "description": "DQSG (ドラクエ スマッシュグロウ) players utility tools including Memory Simulator, Tracker, and EXP Calculator.",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -12,14 +33,8 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8745627670538547" crossorigin="anonymous"></script>
 
     <style>
-        /* 隱藏/顯示 Modal 的過渡效果 */
-        .modal {
-            transition: opacity 0.25s ease;
-        }
-        body.modal-active {
-            overflow-x: hidden;
-            overflow-y: hidden !important;
-        }
+        .modal { transition: opacity 0.25s ease; }
+        body.modal-active { overflow: hidden !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans leading-normal tracking-normal flex flex-col min-h-screen">
@@ -28,13 +43,15 @@
     <nav class="bg-blue-800 p-4 shadow-md">
         <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center">
             <div class="flex items-center text-white mr-6">
+                <!-- LOGO 圖標 -->
                 <svg class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
                 </svg>
-                <span class="font-bold text-xl tracking-tight" data-i18n="site_title">DQSG 實用工具入口網</span>
+                <span class="font-bold text-xl tracking-tight" data-i18n="site_name">DQSG 攻略工具入口網</span>
             </div>
             <div class="block">
-                <select id="lang-select" class="bg-blue-700 text-white border border-blue-600 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 cursor-pointer" onchange="changeLanguage(this.value)">
+                <!-- 語言切換，改變 URL 參數以利 SEO 分享 -->
+                <select id="lang-select" class="bg-blue-700 text-white border border-blue-600 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 cursor-pointer" onchange="changeLanguageAndURL(this.value)">
                     <option value="zh">繁體中文</option>
                     <option value="ja">日本語</option>
                 </select>
@@ -46,8 +63,7 @@
     <main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
         
         <!-- AdSense 廣告區塊 (頂部橫幅) -->
-        <div class="w-full bg-gray-200 flex justify-center items-center mb-8 min-h-[90px] text-gray-400 text-sm overflow-hidden">
-            <!-- 這裡放置實際廣告顯示的 ins 標籤 -->
+        <div class="w-full bg-gray-200 flex justify-center items-center mb-8 min-h-[90px] text-gray-400 text-sm overflow-hidden rounded">
             <ins class="adsbygoogle"
                  style="display:block; width:100%; height:90px;"
                  data-ad-client="ca-pub-8745627670538547"
@@ -59,36 +75,34 @@
             </script>
         </div>
 
-        <!-- 歡迎區塊 -->
+        <!-- 歡迎區塊 (H1 用於強勢 SEO 關鍵字) -->
         <section class="text-center mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-blue-900" data-i18n="welcome_title">歡迎來到 DQSG 工具箱</h1>
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-blue-900" data-i18n="welcome_title">DQSG 攻略實用工具箱</h1>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto" data-i18n="welcome_desc">
-                這是一個專為 DQSG 玩家打造的綜合工具平台。我們提供多種實用的網頁工具，協助您在遊戲中進行更精確的數據計算、資源管理與進度追蹤。請點擊下方工具卡片開始使用，提升您的遊戲體驗！
+                專為 DQSG 玩家打造的攻略輔助平台。提供記憶晶體最佳化模擬、庫存追蹤與經驗值效率計算。點擊下方工具，立即提升您的通關與農素材效率！
             </p>
         </section>
 
-        <!-- 工具卡片網格 -->
+        <!-- 工具卡片網格 (H2 包含工具核心關鍵字) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- Tool 1: 記憶晶體模擬器 -->
+            <!-- Tool 1 -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <div class="p-6 flex-grow">
                     <div class="text-blue-600 mb-4">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                     </div>
-                    <h2 class="text-xl font-bold mb-2 text-gray-800" data-i18n="tool1_title">記憶晶體模擬器</h2>
+                    <h2 class="text-xl font-bold mb-2 text-gray-800" data-i18n="tool1_title">記憶晶體模擬器 (最強搭配)</h2>
                     <p class="text-gray-600 mb-4 text-sm leading-relaxed" data-i18n="tool1_desc">
-                        在不消耗遊戲內資源的情況下，模擬不同記憶晶體的搭配效果。最佳化您的角色配置與戰力，找出最適合目前高難度關卡的無敵組合。
+                        不消耗資源即可模擬各種記憶晶體的屬性加成。輕鬆打造最強戰力隊伍，找出攻克高難度關卡與祠堂的最佳組合配置。
                     </p>
                 </div>
                 <div class="p-4 bg-gray-50 border-t border-gray-100">
-                    <a href="https://dq-mobile-guide.github.io/dqsg-memory-simulator/" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200" data-i18n="btn_open">
-                        開啟工具
-                    </a>
+                    <a href="https://dq-mobile-guide.github.io/dqsg-memory-simulator/" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200" data-i18n="btn_open">開啟工具</a>
                 </div>
             </div>
 
-            <!-- Tool 2: 記憶晶體收集追蹤器 -->
+            <!-- Tool 2 -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <div class="p-6 flex-grow">
                     <div class="text-green-600 mb-4">
@@ -96,52 +110,47 @@
                     </div>
                     <h2 class="text-xl font-bold mb-2 text-gray-800" data-i18n="tool2_title">記憶晶體收集追蹤器</h2>
                     <p class="text-gray-600 mb-4 text-sm leading-relaxed" data-i18n="tool2_desc">
-                        輕鬆記錄並追蹤您目前已收集到的記憶晶體進度。視覺化您的庫存清單，一眼看穿還缺少哪些關鍵碎片，方便規劃未來的農場周回方向。
+                        一鍵記錄並視覺化您的記憶晶體收集進度。快速盤點缺少的關鍵碎片，為未來的關卡周回與素材農場制定最高效的計畫。
                     </p>
                 </div>
                 <div class="p-4 bg-gray-50 border-t border-gray-100">
-                    <a href="https://dq-mobile-guide.github.io/dqsg-mem-collector/" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200" data-i18n="btn_open">
-                        開啟工具
-                    </a>
+                    <a href="https://dq-mobile-guide.github.io/dqsg-mem-collector/" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200" data-i18n="btn_open">開啟工具</a>
                 </div>
             </div>
 
-            <!-- Tool 3: 經驗值計算機 -->
+            <!-- Tool 3 -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <div class="p-6 flex-grow">
                     <div class="text-purple-600 mb-4">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                     </div>
-                    <h2 class="text-xl font-bold mb-2 text-gray-800" data-i18n="tool3_title">經驗值計算機</h2>
+                    <h2 class="text-xl font-bold mb-2 text-gray-800" data-i18n="tool3_title">經驗值(EXP)效率計算機</h2>
                     <p class="text-gray-600 mb-4 text-sm leading-relaxed" data-i18n="tool3_desc">
-                        不再盲目練功！輸入當前等級與目標等級，快速計算角色升級所需的總經驗值與所需通關的關卡場次。精準掌握體力消耗，讓時間發揮最大效益。
+                        輸入等級，光速計算升級所需經驗值與關卡周回次數。精準掌控體力(スタミナ)消耗，讓您的角色練等(レベリング)效率最大化。
                     </p>
                 </div>
                 <div class="p-4 bg-gray-50 border-t border-gray-100">
-                    <a href="https://dq-mobile-guide.github.io/dqsg-exp-cal/" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200" data-i18n="btn_open">
-                        開啟工具
-                    </a>
+                    <a href="https://dq-mobile-guide.github.io/dqsg-exp-cal/" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200" data-i18n="btn_open">開啟工具</a>
                 </div>
             </div>
 
         </div>
 
-        <!-- 關於本站 -->
+        <!-- 關於本站 (H3 內文強化 SEO) -->
         <section class="mt-16 bg-white p-8 rounded-lg shadow border border-gray-200">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-i18n="about_title">關於 DQSG 工具箱</h3>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-i18n="about_title">關於 DQSG 攻略工具箱</h3>
             <div class="text-gray-600 space-y-4 leading-relaxed">
                 <p data-i18n="about_p1">
-                    「DQSG 實用工具入口網」是一個非官方的玩家社群資源站。我們的宗旨是開發並整理高質量的輔助工具，幫助所有熱愛這款遊戲的玩家們能更輕鬆地管理繁雜的遊戲數據。不論您是剛加入的新手，還是追求極致通關速度的高階玩家，這裡的工具都能在您的冒險旅途中提供實質的幫助。
+                    「DQSG 攻略工具入口網」是一個由熱心玩家社群建立的非官方輔助網站。我們的宗旨是提供高質量的 Web 實用工具，幫助所有熱愛這款遊戲的玩家輕鬆管理數據。不論您是剛入坑的新手，還是追求極限通關速度的高階玩家，這裡的工具都能為您的攻略旅程提供強大支援。
                 </p>
                 <p data-i18n="about_p2">
-                    本站所有的模擬數據與計算公式皆整理自遊戲內公開資訊與玩家社群測試。我們承諾將會持續維護並更新這些工具，以配合遊戲版本的迭代。如果您在使用過程中有任何建議、發現錯誤，或是希望我們開發新的工具，請隨時關注我們的最新動態。祝您武運昌隆！
+                    所有計算公式與模擬數據皆整理自公開情報及玩家社群的實測驗證。我們將持續配合遊戲的最新版本進行維護與更新。若有任何 Bug 回報或是新功能的開發建議，歡迎隨時與我們聯繫。祝您遊戲愉快，攻略順利！
                 </p>
             </div>
         </section>
 
         <!-- AdSense 廣告區塊 (底部) -->
-        <div class="w-full bg-gray-200 flex justify-center items-center mt-12 min-h-[90px] text-gray-400 text-sm overflow-hidden">
-             <!-- 這裡放置實際廣告顯示的 ins 標籤 -->
+        <div class="w-full bg-gray-200 flex justify-center items-center mt-12 min-h-[90px] text-gray-400 text-sm overflow-hidden rounded">
              <ins class="adsbygoogle"
                  style="display:block; width:100%; height:90px;"
                  data-ad-client="ca-pub-8745627670538547"
@@ -160,7 +169,7 @@
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="flex flex-wrap text-left lg:text-left">
                 <div class="w-full lg:w-6/12 px-4">
-                    <h4 class="text-3xl font-semibold mb-2" data-i18n="site_title">DQSG 實用工具入口網</h4>
+                    <h4 class="text-3xl font-semibold mb-2" data-i18n="site_name">DQSG 攻略工具入口網</h4>
                     <h5 class="text-lg mt-0 mb-2 text-gray-400" data-i18n="footer_slogan">
                         讓您的冒險旅程更加順利。
                     </h5>
@@ -197,16 +206,14 @@
                 <div class="flex justify-between items-center pb-3 border-b">
                     <p class="text-2xl font-bold text-gray-800" data-i18n="nav_privacy">隱私權政策</p>
                     <div class="modal-close cursor-pointer z-50" onclick="closeModal('privacyModal')">
-                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path></svg>
                     </div>
                 </div>
                 <div class="my-5 text-gray-600 text-sm space-y-4">
-                    <h4 class="font-bold">1. 資料收集</h4>
-                    <p>本網站作為靜態工具入口網，並不會主動收集使用者的個人身份識別資訊 (PII)。使用者的輸入資料僅在您的本地瀏覽器進行處理。</p>
+                    <h4 class="font-bold">1. 資料收集 / データの収集について</h4>
+                    <p>本網站作為靜態工具入口網，並不會主動收集使用者的個人身份識別資訊 (PII)。使用者的輸入資料僅在您的本地瀏覽器進行處理。<br>当サイトは静的なツールポータルであり、ユーザーの個人を特定できる情報（PII）を積極的に収集することはありません。</p>
                     <h4 class="font-bold">2. Cookie 與第三方服務 (Google AdSense)</h4>
-                    <p>本網站使用 Google AdSense 服務來提供廣告。Google 及其合作夥伴會使用 Cookie，根據使用者先前造訪本網站或其他網站的紀錄來放送廣告。<br>使用者可前往「Google 廣告設定」停用個人化廣告。</p>
+                    <p>本網站使用 Google AdSense 服務來提供廣告。Google 及其合作夥伴會使用 Cookie，根據使用者先前造訪本網站或其他網站的紀錄來放送廣告。使用者可前往「Google 廣告設定」停用個人化廣告。<br>当サイトではGoogle AdSenseを使用しています。Googleなどの第三者配信事業者は、Cookieを使用して、ユーザーが当サイトや他のウェブサイトに過去にアクセスした際の情報に基づいて広告を配信します。</p>
                 </div>
             </div>
         </div>
@@ -220,9 +227,7 @@
                 <div class="flex justify-between items-center pb-3 border-b">
                     <p class="text-2xl font-bold text-gray-800" data-i18n="nav_terms">服務條款</p>
                     <div class="modal-close cursor-pointer z-50" onclick="closeModal('termsModal')">
-                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path></svg>
                     </div>
                 </div>
                 <div class="my-5 text-gray-600 text-sm space-y-4">
@@ -240,13 +245,11 @@
                 <div class="flex justify-between items-center pb-3 border-b">
                     <p class="text-2xl font-bold text-gray-800" data-i18n="nav_contact">聯絡我們</p>
                     <div class="modal-close cursor-pointer z-50" onclick="closeModal('contactModal')">
-                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path></svg>
                     </div>
                 </div>
                 <div class="my-5 text-gray-600 text-sm space-y-4">
-                    <p>若您在使用上有任何問題、發現 Bug，或是對工具有改進建議，歡迎透過 GitHub Issue 系統回報給我們。</p>
+                    <p data-i18n="contact_desc">若您在使用上有任何問題、發現 Bug，或是對工具有改進建議，歡迎透過 GitHub Issue 系統回報給我們。</p>
                     <p class="font-bold">GitHub Repository: (待補)</p>
                 </div>
             </div>
@@ -255,115 +258,137 @@
 
     <!-- i18n 翻譯與邏輯腳本 -->
     <script>
-        // 設定年份
         document.getElementById('get-current-year').textContent = new Date().getFullYear();
 
-        // 翻譯字典 (已針對日本遊戲社群與攻略Wiki習慣用語全面優化)
+        // 字典：全面注入 SEO 相關高流量關鍵字
         const i18n = {
             zh: {
-                site_title: "DQSG 實用工具入口網",
-                welcome_title: "歡迎來到 DQSG 工具箱",
-                welcome_desc: "這是一個專為 DQSG 玩家打造的綜合工具平台。我們提供多種實用的網頁工具，協助您在遊戲中進行更精確的數據計算、資源管理與進度追蹤。請點擊下方工具卡片開始使用，提升您的遊戲體驗！",
+                meta_title: "DQSG 攻略實用工具入口網 | 記憶晶體模擬器、經驗值計算機",
+                meta_desc: "專為《勇者鬥惡龍 智慧型手機遊戲》(DQSG) 玩家打造的攻略輔助工具網。提供記憶晶體搭配模擬器、收集追蹤器及經驗值計算機，助您高效率通關、無痛農素材。",
+                site_name: "DQSG 攻略工具入口網",
+                welcome_title: "DQSG 攻略實用工具箱",
+                welcome_desc: "專為 DQSG 玩家打造的攻略輔助平台。提供記憶晶體最佳化模擬、庫存追蹤與經驗值效率計算。點擊下方工具，立即提升您的通關與農素材效率！",
                 
-                tool1_title: "記憶晶體模擬器",
-                tool1_desc: "在不消耗遊戲內資源的情況下，模擬不同記憶晶體的搭配效果。最佳化您的角色配置與戰力，找出最適合目前高難度關卡的無敵組合。",
+                tool1_title: "記憶晶體模擬器 (最強搭配)",
+                tool1_desc: "不消耗資源即可模擬各種記憶晶體的屬性加成。輕鬆打造最強戰力隊伍，找出攻克高難度關卡與祠堂的最佳組合配置。",
                 
                 tool2_title: "記憶晶體收集追蹤器",
-                tool2_desc: "輕鬆記錄並追蹤您目前已收集到的記憶晶體進度。視覺化您的庫存清單，一眼看穿還缺少哪些關鍵碎片，方便規劃未來的農場周回方向。",
+                tool2_desc: "一鍵記錄並視覺化您的記憶晶體收集進度。快速盤點缺少的關鍵碎片，為未來的關卡周回與素材農場制定最高效的計畫。",
                 
-                tool3_title: "經驗值計算機",
-                tool3_desc: "不再盲目練功！輸入當前等級與目標等級，快速計算角色升級所需的總經驗值與所需通關的關卡場次。精準掌握體力消耗，讓時間發揮最大效益。",
+                tool3_title: "經驗值(EXP)效率計算機",
+                tool3_desc: "輸入等級，光速計算升級所需經驗值與關卡周回次數。精準掌控體力消耗，讓您的角色練等效率最大化。",
                 
                 btn_open: "開啟工具",
                 
-                about_title: "關於 DQSG 工具箱",
-                about_p1: "「DQSG 實用工具入口網」是一個非官方的玩家社群資源站。我們的宗旨是開發並整理高質量的輔助工具，幫助所有熱愛這款遊戲的玩家們能更輕鬆地管理繁雜的遊戲數據。不論您是剛加入的新手，還是追求極致通關速度的高階玩家，這裡的工具都能在您的冒險旅途中提供實質的幫助。",
-                about_p2: "本站所有的模擬數據與計算公式皆整理自遊戲內公開資訊與玩家社群測試。我們承諾將會持續維護並更新這些工具，以配合遊戲版本的迭代。如果您在使用過程中有任何建議、發現錯誤，或是希望我們開發新的工具，請隨時關注我們的最新動態。祝您武運昌隆！",
+                about_title: "關於 DQSG 攻略工具箱",
+                about_p1: "「DQSG 攻略工具入口網」是一個由熱心玩家社群建立的非官方輔助網站。我們的宗旨是提供高質量的 Web 實用工具，幫助所有熱愛這款遊戲的玩家輕鬆管理數據。不論您是剛入坑的新手，還是追求極限通關速度的高階玩家，這裡的工具都能為您的攻略旅程提供強大支援。",
+                about_p2: "所有計算公式與模擬數據皆整理自公開情報及玩家社群的實測驗證。我們將持續配合遊戲的最新版本進行維護與更新。若有任何 Bug 回報或是新功能的開發建議，歡迎隨時與我們聯繫。祝您遊戲愉快，攻略順利！",
                 
                 footer_slogan: "讓您的冒險旅程更加順利。",
                 footer_links_title: "網站連結",
                 nav_privacy: "隱私權政策",
                 nav_terms: "服務條款",
                 nav_contact: "聯絡我們",
+                contact_desc: "若您在使用上有任何問題、發現 Bug，或是對工具有改進建議，歡迎透過 GitHub Issue 系統回報給我們。",
                 footer_rights: "版權所有。"
             },
             ja: {
-                // 日文語系使用 GameWith/Game8 等攻略網站常用名詞
-                site_title: "スマグロ(DQSG) 攻略ツールポータル",
-                welcome_title: "スマグロ ツールポータルへようこそ！",
-                welcome_desc: "スマグロ（ドラクエ スマッシュグロウ）プレイヤー向けの非公式お役立ちツール集です。メモリ編成のシミュレートや所持状況の管理、レベル上げに必要な経験値の計算など、攻略に役立つ便利なWebツールを公開しています。下のカードから各ツールをご利用ください！",
+                meta_title: "スマグロ(DQSG) 攻略ツールポータル | メモリ最強編成シミュ・レベリング計算",
+                meta_desc: "ドラクエ スマッシュグロウ(スマグロ)の攻略お役立ちツール集。メモリ編成シミュレーター、所持チェッカー、レベリング効率化のための経験値計算ツールを公開中。強敵マッチや周回を徹底サポート！",
+                site_name: "スマグロ攻略ツールポータル",
+                welcome_title: "スマグロ(DQSG) 攻略ツールボックス",
+                welcome_desc: "スマグロプレイヤー向けの非公式お役立ちツール集です。メモリ最強編成のシミュレートや所持状況の管理、レベル上げの高効率化など、攻略に必須のWebツールを公開しています！",
                 
-                tool1_title: "メモリ編成シミュレーター",
-                tool1_desc: "ゲーム内のアイテムを消費せずに、様々なメモリの組み合わせをシミュレーションできます。最強パーティの編成やステータスの最適化など、高難易度クエスト（強敵マッチ・ほこらなど）の攻略にお役立てください。",
+                tool1_title: "メモリ編成シミュレーター (最強編成)",
+                tool1_desc: "ゲーム内のアイテムを消費せずに、様々なメモリの組み合わせを検証できます。最強パーティの編成やステータス最適化を行い、高難易度クエスト（強敵マッチ・ほこら）の攻略にお役立てください。",
                 
-                tool2_title: "メモリ所持チェッカー",
-                tool2_desc: "現在集めたメモリの所持状況を記録・管理できるツールです。所持済みのメモリを視覚的に把握できるため、どのクエストを周回すべきか、今後の育成計画を立てやすくなります。",
+                tool2_title: "メモリ所持状況チェッカー",
+                tool2_desc: "現在集めたメモリの進捗をワンタップで記録・管理できるツールです。不足している欠片や周回すべきクエストを一目で把握し、効率的な素材集めを実現します。",
                 
-                tool3_title: "経験値計算ツール",
-                tool3_desc: "現在のレベルと目標レベルを入力するだけで、必要な累計経験値やクリア回数をサクッと計算！スタミナの無駄を省き、効率的なレベル上げ（レベリング）をサポートします。",
+                tool3_title: "経験値(EXP) 効率計算ツール",
+                tool3_desc: "現在のレベルと目標レベルを入力するだけで、必要な累計経験値や周回数をサクッと計算！スタミナの無駄を省き、最高効率でのレベリング（レベル上げ）をサポートします。",
                 
                 btn_open: "ツールを使う",
                 
-                about_title: "当サイトについて",
-                about_p1: "「スマグロ(DQSG) 攻略ツールポータル」は、ドラクエ スマッシュグロウのプレイヤー有志が運営する非公式のファンサイトです。初心者からガチ勢まで、より快適にゲームを楽しめるよう、複雑なデータ管理や計算をサポートする便利ツールを開発・公開しています。",
-                about_p2: "各ツールのデータや計算式は、ゲーム内の情報およびプレイヤーコミュニティでの検証結果を基に作成しております。今後のアップデートにも随時対応していく予定です。不具合の報告や「こんなツールが欲しい！」といったご要望がありましたら、ぜひお気軽にお問い合わせください。良きスマグロライフを！",
+                about_title: "当サイト（攻略ポータル）について",
+                about_p1: "「スマグロ攻略ツールポータル」は、ドラクエ スマッシュグロウのプレイヤー有志が運営する非公式ファンサイトです。初心者からガチ勢まで、より快適にゲームを楽しめるよう、複雑なデータ管理や周回効率化をサポートする便利ツールを開発・公開しています。",
+                about_p2: "各ツールのデータや計算式は、ゲーム内の情報および攻略コミュニティでの検証結果（GameWith / Game8 などのデータ検証を含む）を基に作成しております。今後のアップデートにも随時対応予定です。不具合報告やご要望はお気軽にお問い合わせください。良きスマグロライフを！",
                 
                 footer_slogan: "スマグロの冒険を、もっと快適に。",
-                footer_links_title: "リンク",
+                footer_links_title: "リンク集",
                 nav_privacy: "プライバシーポリシー",
                 nav_terms: "利用規約",
                 nav_contact: "お問い合わせ",
+                contact_desc: "不具合の報告や「こんなツールが欲しい！」といったご要望がありましたら、GitHubのIssueよりお気軽にお知らせください。",
                 footer_rights: "無断複写・転載を禁じます。"
             }
         };
 
-        // 切換語言功能
+        // 執行語言切換並更新 Meta Data 以優化 SEO
         function changeLanguage(lang) {
             document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'ja';
+            
+            // 更新 HTML 內容
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (i18n[lang] && i18n[lang][key]) {
                     el.textContent = i18n[lang][key];
                 }
             });
-            // 變更 title
-            document.title = i18n[lang].site_title;
+            
+            // SEO 重點：動態更新 Title 與 Meta Description
+            document.title = i18n[lang].meta_title;
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if(metaDesc) {
+                metaDesc.setAttribute('content', i18n[lang].meta_desc);
+            }
         }
 
-        // 啟動時自動偵測瀏覽器語言
+        // 使用者手動切換語言時，可考慮將語言參數放進 URL 以便分享
+        function changeLanguageAndURL(lang) {
+            changeLanguage(lang);
+            // 替換 URL 但不重新載入頁面，方便使用者複製網址給朋友 (SEO Friendly for sharing)
+            if (history.pushState) {
+                const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?lang=' + lang;
+                window.history.pushState({path:newurl}, '', newurl);
+            }
+        }
+
+        // 啟動時偵測：優先讀取 URL 參數 (SEO 友善)，其次才是瀏覽器語言
         document.addEventListener('DOMContentLoaded', () => {
-            const userLang = navigator.language || navigator.userLanguage;
-            let defaultLang = 'zh'; // 預設繁體中文
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
             
-            // 如果偵測到是日文環境
-            if (userLang.toLowerCase().startsWith('ja')) {
-                defaultLang = 'ja';
+            let targetLang = 'zh'; // 預設
+            
+            if (urlLang === 'ja' || urlLang === 'zh') {
+                targetLang = urlLang;
+            } else {
+                // 若無 URL 參數，依瀏覽器判斷
+                const userLang = navigator.language || navigator.userLanguage;
+                if (userLang.toLowerCase().startsWith('ja')) {
+                    targetLang = 'ja';
+                }
             }
             
-            document.getElementById('lang-select').value = defaultLang;
-            changeLanguage(defaultLang);
+            document.getElementById('lang-select').value = targetLang;
+            changeLanguage(targetLang);
         });
 
-        // Modal 控制邏輯
+        // Modal 相關邏輯
         function openModal(modalID) {
-            document.getElementById(modalID).classList.remove('opacity-0');
-            document.getElementById(modalID).classList.remove('pointer-events-none');
+            document.getElementById(modalID).classList.remove('opacity-0', 'pointer-events-none');
             document.body.classList.add('modal-active');
         }
 
         function closeModal(modalID) {
-            document.getElementById(modalID).classList.add('opacity-0');
-            document.getElementById(modalID).classList.add('pointer-events-none');
+            document.getElementById(modalID).classList.add('opacity-0', 'pointer-events-none');
             document.body.classList.remove('modal-active');
         }
 
-        // 點擊 Esc 關閉 Modal
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
-                const modals = document.querySelectorAll('.modal:not(.opacity-0)');
-                modals.forEach(modal => {
-                    closeModal(modal.id);
-                });
+                document.querySelectorAll('.modal:not(.opacity-0)').forEach(modal => closeModal(modal.id));
             }
         });
     </script>
